@@ -121,6 +121,13 @@ def pytest_addoption(parser):
         help='Custom comment, to be appended to default comment for test run \
               (config file: custom_comment in TESTRUN section)'
     )
+    group.addoption(
+        '--tr-custom-dut',
+        action='store',
+        default=None,
+        required=False,
+        help='Custom dut field, to be appended to default comment for test run'
+    )
 
 
 def pytest_configure(config):
@@ -152,6 +159,7 @@ def pytest_configure(config):
                 skip_missing=config.getoption('--tr-skip-missing'),
                 milestone_id=config_manager.getoption('tr-milestone-id', 'milestone_id', 'TESTRUN'),
                 custom_comment=config_manager.getoption('tr-custom-comment', 'custom_comment', 'TESTRUN')
+                custom_dut=config.getoption('tr-custom-dut')
             ),
             # Name of plugin instance (allow to be used by other plugins)
             name="pytest-testrail-instance"
