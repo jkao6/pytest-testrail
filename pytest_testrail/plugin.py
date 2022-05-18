@@ -283,7 +283,7 @@ class PyTestRailPlugin(object):
                 'comment': comment,
                 'duration': duration,
                 'defects': defects,
-                'test_parametrize': test_parametrize
+                'test_parametrize': test_parametrize,
                 'custom_dut': custom_dut
             }
             self.results.append(data)
