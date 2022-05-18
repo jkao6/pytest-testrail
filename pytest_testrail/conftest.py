@@ -114,12 +114,12 @@ def pytest_addoption(parser):
         help='Identifier of milestone, to be used in run creation (config file: milestone_id in TESTRUN section)'
     )
     group.addoption(
-        '--tc-custom-comment',
+        '--tr-custom-comment',
         action='store',
         default=None,
         required=False,
-        help='Custom comment, to be appended to default comment for test case \
-              (config file: custom_comment in TESTCASE section)'
+        help='Custom comment, to be appended to default comment for test run \
+              (config file: custom_comment in TESTRUN section)'
     )
 
 
@@ -151,7 +151,7 @@ def pytest_configure(config):
                 publish_blocked=config.getoption('--tr-dont-publish-blocked'),
                 skip_missing=config.getoption('--tr-skip-missing'),
                 milestone_id=config_manager.getoption('tr-milestone-id', 'milestone_id', 'TESTRUN'),
-                custom_comment=config_manager.getoption('tc-custom-comment', 'custom_comment', 'TESTCASE')
+                custom_comment=config_manager.getoption('tr-custom-comment', 'custom_comment', 'TESTRUN')
             ),
             # Name of plugin instance (allow to be used by other plugins)
             name="pytest-testrail-instance"
