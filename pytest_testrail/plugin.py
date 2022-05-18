@@ -326,25 +326,7 @@ class PyTestRailPlugin(object):
             entry = {'status_id': result['status_id'], 'case_id': result['case_id'], 'defects': result['defects']}
             if self.version:
                 entry['version'] = self.version
-            comment = result.get('comment', '')
-            test_parametrize = result.get('test_parametrize', '')
-            entry['comment'] = u''
-            if test_parametrize:
-                entry['comment'] += u"# Test parametrize: #\n"
-                entry['comment'] += str(test_parametrize) + u'\n\n'
-            if comment:
-                if self.custom_comment:
-                    entry['comment'] += self.custom_comment + '\n'
-                    # Indent text to avoid string formatting by TestRail. Limit size of comment.
-                    entry['comment'] += u"# Pytest result: #\n"
-                    entry['comment'] += u'Log truncated\n...\n' if len(str(comment)) > COMMENT_SIZE_LIMIT else u''
-                    entry['comment'] += u"    " + converter(str(comment), "utf-8")[-COMMENT_SIZE_LIMIT:].replace('\n', '\n    ') # noqa
-                else:
-                    # Indent text to avoid string formatting by TestRail. Limit size of comment.
-                    entry['comment'] += u"# Pytest result: #\n"
-                    entry['comment'] += u'Log truncated\n...\n' if len(str(comment)) > COMMENT_SIZE_LIMIT else u''
-                    entry['comment'] += u"    " + converter(str(comment), "utf-8")[-COMMENT_SIZE_LIMIT:].replace('\n', '\n    ') # noqa
-            elif comment == '':
+            if self.custom_comment:
                 entry['comment'] = self.custom_comment
             duration = result.get('duration')
             if duration:
