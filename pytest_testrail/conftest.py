@@ -159,7 +159,7 @@ def pytest_configure(config):
                 skip_missing=config.getoption('--tr-skip-missing'),
                 milestone_id=config_manager.getoption('tr-milestone-id', 'milestone_id', 'TESTRUN'),
                 custom_comment=config_manager.getoption('tr-custom-comment', 'custom_comment', 'TESTRUN'),
-                custom_dut=config.getoption('tr-custom-dut')
+                custom_dut=config_manager.getoption('tr-custom-dut', 'custom_dut', 'TESTRUN')
             ),
             # Name of plugin instance (allow to be used by other plugins)
             name="pytest-testrail-instance"
