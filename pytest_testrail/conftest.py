@@ -158,7 +158,7 @@ def pytest_configure(config):
                 publish_blocked=config.getoption('--tr-dont-publish-blocked'),
                 skip_missing=config.getoption('--tr-skip-missing'),
                 milestone_id=config_manager.getoption('tr-milestone-id', 'milestone_id', 'TESTRUN'),
-                custom_comment=config_manager.getoption('tr-custom-comment', 'custom_comment', 'TESTRUN')
+                custom_comment=config_manager.getoption('tr-custom-comment', 'custom_comment', 'TESTRUN'),
                 custom_dut=config.getoption('tr-custom-dut')
             ),
             # Name of plugin instance (allow to be used by other plugins)
