@@ -32,6 +32,7 @@ CLOSE_TESTPLAN_URL = 'close_plan/{}'
 GET_TESTRUN_URL = 'get_run/{}'
 GET_TESTPLAN_URL = 'get_plan/{}'
 GET_TESTS_URL = 'get_tests/{}'
+GET_RESULTS_URL = 'get_results/{}'
 
 COMMENT_SIZE_LIMIT = 4000
 
@@ -249,6 +250,13 @@ class PyTestRailPlugin(object):
 
             if self.testrun_id:
                 self.add_results(self.testrun_id)
+                #test_list = self.get_tests(self.testrun_id)
+                #for test in test_list:
+                #    results_list = self.get_results(test['id'])
+                #    self.add_attachment(results_list[0]['id'])
+                    # CONTINUE TODO, IS UNFINISHED
+                    
+                    
             elif self.testplan_id:
                 testruns = self.get_available_testruns(self.testplan_id)
                 print('[{}] Testruns to update: {}'.format(TESTRAIL_PREFIX, ', '.join([str(elt) for elt in testruns])))
@@ -330,6 +338,15 @@ class PyTestRailPlugin(object):
                 entry['version'] = self.version
             if self.custom_comment:
                 entry['comment'] = self.custom_comment
+            ### TODO: implement output porting to comment below:
+            
+            # import text file with results
+            
+            # prune relevent text? (nice to have)
+            
+            # add to comment
+            
+            ### 
             duration = result.get('duration')
             if duration:
                 duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
@@ -346,6 +363,10 @@ class PyTestRailPlugin(object):
         error = self.client.get_error(response)
         if error:
             print('[{}] Info: Testcases not published for following reason: "{}"'.format(TESTRAIL_PREFIX, error))
+            
+        if response:
+            for result in self.results:
+                
 
     def create_test_run(self, assign_user_id, project_id, suite_id, include_all,
                         testrun_name, tr_keys, milestone_id, description=''):
@@ -471,6 +492,21 @@ class PyTestRailPlugin(object):
         """
         response = self.client.send_get(
             GET_TESTS_URL.format(run_id),
+            cert_check=self.cert_check
+        )
+        error = self.client.get_error(response)
+        if error:
+            print('[{}] Failed to get tests: "{}"'.format(TESTRAIL_PREFIX, error))
+            return None
+        return response
+        
+    def get_results(self, test_id):
+        """
+        :return: list of results in a test
+        
+        """
+        response = self.client.send_get(
+            GET_RESULTS_URL.format(test_id),
             cert_check=self.cert_check
         )
         error = self.client.get_error(response)

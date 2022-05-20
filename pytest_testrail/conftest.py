@@ -1,3 +1,5 @@
+pytest_plugins = ‘pytest_session2file’
+
 # -*- coding: UTF-8 -*-
 import os
 import sys
@@ -9,7 +11,6 @@ if sys.version_info.major == 2:
 else:
     # python3
     import configparser
-
 
 def pytest_addoption(parser):
     group = parser.getgroup('testrail')
