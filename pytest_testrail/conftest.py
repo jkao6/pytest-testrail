@@ -1,5 +1,3 @@
-pytest_plugins = ‘pytest_session2file’
-
 # -*- coding: UTF-8 -*-
 import os
 import sys
