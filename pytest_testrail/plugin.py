@@ -334,9 +334,10 @@ class PyTestRailPlugin(object):
 
         # Publish results
         #Make sure file exists before getting the string data
-        if os.path.exists("tr_log.txt") == True:
-            # import text file with results
-            log_file = open("tr_log.txt")
+        log_file = None
+        #if os.path.exists("tr_log.txt") == True:
+        #    # import text file with results
+        #    log_file = open("tr_log.txt")
         data = {'results': []}
         for result in self.results:
             entry = {'status_id': result['status_id'], 'case_id': result['case_id'], 'defects': result['defects']}
@@ -346,10 +347,10 @@ class PyTestRailPlugin(object):
                 entry['comment'] = self.custom_comment
             ### TODO: implement output porting to comment below:
                 #if test failed
-                if (entry['status_id'] == 5) and (log_file):
-                    # add to comment
-                    entry['comment'] += log_file.read()
-            duration = result.get('duration')
+                #if (entry['status_id'] == 5) and (log_file):
+                #    # add to comment
+                #    entry['comment'] += log_file.read()
+                #entry['comment'] += sys.stdout()
             if duration:
                 duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
                 entry['elapsed'] = str(duration) + 's'
@@ -357,9 +358,9 @@ class PyTestRailPlugin(object):
                 entry['custom_dut'] = self.custom_dut
             data['results'].append(entry)
         # close the file and delete it
-        if os.path.exists("tr_log.txt") == True:
-            log_file.close()
-            subprocess.check_output("del /f tr_log.txt")
+        #if os.path.exists("tr_log.txt") == True:
+        #    log_file.close()
+        #    subprocess.check_output("del /f tr_log.txt")
                 
         response = self.client.send_post(
             ADD_RESULTS_URL.format(testrun_id),
