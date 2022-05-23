@@ -346,7 +346,7 @@ class PyTestRailPlugin(object):
                 entry['comment'] = self.custom_comment
             ### TODO: implement output porting to comment below:
                 #if test failed
-                if entry['status_id'] == 5 && log_file:
+                if (entry['status_id'] == 5) && (log_file):
                     # add to comment
                     entry['comment'] += log_file.read()
             duration = result.get('duration')
