@@ -354,8 +354,9 @@ class PyTestRailPlugin(object):
             #if duration:
             #    duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
             #    entry['elapsed'] = str(duration) + 's'
-            if result.get('duration'):
-                duration = 1 if (int(result.get('duration')) < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
+            duration = result.get('duration')
+            if duration:
+                duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
                 entry['elapsed'] = str(duration) + 's'
             if self.custom_dut:
                 entry['custom_dut'] = self.custom_dut
