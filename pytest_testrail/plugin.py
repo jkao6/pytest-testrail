@@ -334,7 +334,7 @@ class PyTestRailPlugin(object):
 
         # Publish results
         #Make sure file exists before getting the string data
-        if os.path.exists.("tr_log.txt") == True:
+        if os.path.exists("tr_log.txt") == True:
             # import text file with results
             log_file = open("tr_log.txt")
         data = {'results': []}
@@ -357,7 +357,7 @@ class PyTestRailPlugin(object):
                 entry['custom_dut'] = self.custom_dut
             data['results'].append(entry)
         # close the file and delete it
-        if os.path.exists.("tr_log.txt") == True:
+        if os.path.exists("tr_log.txt") == True:
             log_file.close()
             subprocess.check_output("del /f tr_log.txt")
                 
