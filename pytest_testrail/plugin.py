@@ -334,7 +334,7 @@ class PyTestRailPlugin(object):
 
         # Publish results
         #Make sure file exists before getting the string data
-        log_file = None
+        #log_file = None
         #if os.path.exists("tr_log.txt") == True:
         #    # import text file with results
         #    log_file = open("tr_log.txt")
@@ -351,9 +351,11 @@ class PyTestRailPlugin(object):
                 #    # add to comment
                 #    entry['comment'] += log_file.read()
                 #entry['comment'] += sys.stdout()
-            if duration:
-                duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
-                entry['elapsed'] = str(duration) + 's'
+            #if duration:
+            #    duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
+            #    entry['elapsed'] = str(duration) + 's'
+            duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
+            entry['elapsed'] = str(duration) + 's'
             if self.custom_dut:
                 entry['custom_dut'] = self.custom_dut
             data['results'].append(entry)
