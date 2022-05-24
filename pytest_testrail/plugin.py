@@ -351,7 +351,6 @@ class PyTestRailPlugin(object):
                     # add to comment
                     proc=subprocess.Popen('echo "to stdout"', shell=True, stdout=subprocess.PIPE, )
                     entry['comment'] += proc.communicate()[0]
-                entry['comment'] += sys.stdout()
             duration = result.get('duration')
             if duration:
                 duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
