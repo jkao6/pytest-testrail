@@ -345,15 +345,13 @@ class PyTestRailPlugin(object):
                 entry['version'] = self.version
             if self.custom_comment:
                 entry['comment'] = self.custom_comment
-            ### TODO: implement output porting to comment below:
+            # TODO: implement output porting to comment below:
                 #if test failed
-                #if (entry['status_id'] == 5) and (log_file):
-                #    # add to comment
-                #    entry['comment'] += log_file.read()
-                #entry['comment'] += sys.stdout()
-            #if duration:
-            #    duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
-            #    entry['elapsed'] = str(duration) + 's'
+                if (entry['status_id'] == 5):
+                    # add to comment
+                    proc=subprocess.Popen('echo "to stdout"', shell=True, stdout=subprocess.PIPE, )
+                    entry['comment'] += proc.communicate()[0]
+                entry['comment'] += sys.stdout()
             duration = result.get('duration')
             if duration:
                 duration = 1 if (duration < 1) else int(round(duration))  # TestRail API doesn't manage milliseconds
